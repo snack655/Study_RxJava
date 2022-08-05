@@ -1,6 +1,7 @@
 package first;
 
 import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.ObservableEmitter;
 import org.reactivestreams.Publisher;
 import org.reactivestreams.Subscriber;
 
@@ -14,9 +15,23 @@ public class FirstExample {
     public void emit() {
         Observable.just(1, 2, 3, 4, 5, 6)
                 .subscribe(System.out::println);
+
+        Observable<Integer> source = Observable.create(
+            (ObservableEmitter<Integer> emitter) -> {
+                emitter.onNext(100);
+                emitter.onNext(200);
+                emitter.onNext(300);
+                emitter.onComplete();
+            }
+        );
+        source.subscribe(System.out::println);
     }
 
     public static void main(String[] args) {
+        Integer[] arr = {100, 200, 300};
+        Observable<Integer> arrSource = Observable.fromArray(arr);
+        arrSource.subscribe(System.out::println);
+
         FirstExample demo = new FirstExample();
         demo.emit();
 
