@@ -34,6 +34,12 @@ public class CommonUtils {
         }
     }
 
+    private static final String ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+    public static String numberToAlphabet(long x) {
+        return Character.toString(ALPHABET.charAt((int) x % ALPHABET.length()));
+    }
+
     public static String getShape(String obj) {
         if (obj == null || obj.equals("")) return "NO-SHAPE";
         if (obj.endsWith("-H")) return "HEXAGON";
